@@ -1,0 +1,48 @@
+﻿  main.cpp
+D:\xianyu\NewREPtrace1\MDC\mdc.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+D:\xianyu\NewREPtrace1\MDC\main.cpp(10,50): error C2039: "get": 不是 "MDC::MDC" 的成员
+D:\xianyu\NewREPtrace1\MDC\mdc.h(13,11): message : 参见“MDC::MDC”的声明
+D:\xianyu\NewREPtrace1\MDC\main.cpp(10,53): error C3861: “get”: 找不到标识符
+D:\xianyu\NewREPtrace1\MDC\main.cpp(14,15): error C2039: "put": 不是 "MDC::MDC" 的成员
+D:\xianyu\NewREPtrace1\MDC\mdc.h(13,11): message : 参见“MDC::MDC”的声明
+D:\xianyu\NewREPtrace1\MDC\main.cpp(14,18): error C3861: “put”: 找不到标识符
+D:\xianyu\NewREPtrace1\MDC\main.cpp(16,49): error C2039: "get": 不是 "MDC::MDC" 的成员
+D:\xianyu\NewREPtrace1\MDC\mdc.h(13,11): message : 参见“MDC::MDC”的声明
+D:\xianyu\NewREPtrace1\MDC\main.cpp(16,52): error C3861: “get”: 找不到标识符
+  mdc.cpp
+D:\xianyu\NewREPtrace1\MDC\mdc.cpp(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+D:\xianyu\NewREPtrace1\MDC\mdc.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+D:\xianyu\NewREPtrace1\MDC\mdc.cpp(31,9): error C2059: 语法错误:“if”
+D:\xianyu\NewREPtrace1\MDC\mdc.cpp(31,23): error C2143: 语法错误: 缺少“;”(在“{”的前面)
+D:\xianyu\NewREPtrace1\MDC\mdc.cpp(31,23): error C2447: “{”: 缺少函数标题(是否是老式的形式表?)
+D:\xianyu\NewREPtrace1\MDC\mdc.cpp(34,20): error C2065: “key”: 未声明的标识符
+D:\xianyu\NewREPtrace1\MDC\mdc.cpp(34,27): error C4430: 缺少类型说明符 - 假定为 int。注意: C++ 不支持默认 int
+D:\xianyu\NewREPtrace1\MDC\mdc.cpp(34,11): error C2040: “MDC::MDC_map”:“int (*)[0]”与“std::shared_ptr<std::unordered_map<std::string,std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::pair<const std::string,std::string>>>>”的间接寻址级别不同
+D:\xianyu\NewREPtrace1\MDC\mdc.cpp(34,27): error C2065: “value”: 未声明的标识符
+D:\xianyu\NewREPtrace1\MDC\mdc.cpp(38,42): error C2065: “mtx”: 未声明的标识符
+D:\xianyu\NewREPtrace1\MDC\mdc.cpp(39,9): error C2059: 语法错误:“if”
+D:\xianyu\NewREPtrace1\MDC\mdc.cpp(39,22): error C2143: 语法错误: 缺少“;”(在“{”的前面)
+D:\xianyu\NewREPtrace1\MDC\mdc.cpp(39,22): error C2447: “{”: 缺少函数标题(是否是老式的形式表?)
+D:\xianyu\NewREPtrace1\MDC\mdc.cpp(45,9): error C2059: 语法错误:“return”
+D:\xianyu\NewREPtrace1\MDC\mdc.cpp(46,5): error C2059: 语法错误:“}”
+D:\xianyu\NewREPtrace1\MDC\mdc.cpp(46,5): error C2143: 语法错误: 缺少“;”(在“}”的前面)
+D:\xianyu\NewREPtrace1\MDC\mdc.cpp(50,9): error C2059: 语法错误:“if”
+D:\xianyu\NewREPtrace1\MDC\mdc.cpp(50,22): error C2143: 语法错误: 缺少“;”(在“{”的前面)
+D:\xianyu\NewREPtrace1\MDC\mdc.cpp(50,22): error C2447: “{”: 缺少函数标题(是否是老式的形式表?)
+D:\xianyu\NewREPtrace1\MDC\mdc.cpp(53,5): error C2059: 语法错误:“}”
+D:\xianyu\NewREPtrace1\MDC\mdc.cpp(53,5): error C2143: 语法错误: 缺少“;”(在“}”的前面)
+D:\xianyu\NewREPtrace1\MDC\mdc.cpp(56,23): error C2143: 语法错误: 缺少“;”(在“{”的前面)
+D:\xianyu\NewREPtrace1\MDC\mdc.cpp(56,23): error C2447: “{”: 缺少函数标题(是否是老式的形式表?)
+D:\xianyu\NewREPtrace1\MDC\mdc.cpp(59,9): error C2059: 语法错误:“return”
+D:\xianyu\NewREPtrace1\MDC\mdc.cpp(60,5): error C2059: 语法错误:“}”
+D:\xianyu\NewREPtrace1\MDC\mdc.cpp(60,5): error C2143: 语法错误: 缺少“;”(在“}”的前面)
+D:\xianyu\NewREPtrace1\MDC\mdc.cpp(63,15): error C2039: "clear": 不是 "MDC" 的成员
+D:\xianyu\NewREPtrace1\MDC\mdc.cpp(8,11): message : 参见“MDC”的声明
+D:\xianyu\NewREPtrace1\MDC\mdc.cpp(63,23): error C2143: 语法错误: 缺少“;”(在“{”的前面)
+D:\xianyu\NewREPtrace1\MDC\mdc.cpp(63,23): error C2447: “{”: 缺少函数标题(是否是老式的形式表?)
+D:\xianyu\NewREPtrace1\MDC\mdc.cpp(77,15): error C2039: "setContext": 不是 "MDC" 的成员
+D:\xianyu\NewREPtrace1\MDC\mdc.cpp(8,11): message : 参见“MDC”的声明
+D:\xianyu\NewREPtrace1\MDC\mdc.cpp(81,13): error C3861: “put”: 找不到标识符
+D:\xianyu\NewREPtrace1\MDC\mdc.cpp(84,1): error C2059: 语法错误:“}”
+D:\xianyu\NewREPtrace1\MDC\mdc.cpp(84,1): error C2143: 语法错误: 缺少“;”(在“}”的前面)
+  正在生成代码...

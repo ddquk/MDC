@@ -1,0 +1,89 @@
+#include <memory>
+#include <unordered_map>
+#include <mutex>
+#include <thread>
+#include <sstream>
+#include "mdc.h"
+
+namespace MDC {
+
+    // 用于存储每个线程对应的 MDC
+    thread_local std::shared_ptr<std::unordered_map<std::string, std::string>> MDC_map;
+
+    // 用于对 MDC 进行加锁的互斥量
+    std::mutex mtx;
+
+    // 构造函数，在新线程中复制父线程的 MDC 
+    MDC::MDC(std::shared_ptr<std::unordered_map<std::string, std::string>> parent_mdc_map) {
+        std::lock_guard<std::mutex> lock(mtx); // 对 MDC 进行加锁
+        if (parent_mdc_map) {
+            // 如果父线程有 MDC，则拷贝一份到新线程中
+            MDC_map = std::make_shared<std::unordered_map<std::string, std::string>>(*parent_mdc_map);
+        } else {
+            // 如果父线程没有 MDC，则创建一个新的
+            MDC_map = std::make_shared<std::unordered_map<std::string, std::string>>();
+        }
+    }
+
+
+    // 添加键值对到 MDC 中
+    void MDC::put(const std::string &key, const std::string &value) {
+        std::lock_guard<std::mutex> lock(mtx); 
+        if (!MDC_map) {
+            MDC_map = std::make_shared<std::unordered_map<std::string, std::string>>();
+        }
+        (*MDC_map)[key] = value;
+    }
+
+    // 获取指定键的值
+    std::string MDC::get(const std::string &key) {
+        std::lock_guard<std::mutex> lock(mtx); 
+        if (MDC_map) {
+            auto iter = MDC_map->find(key);
+            if (iter != MDC_map->end()) {
+                return iter->second;
+            }
+        }
+        return "";
+    }
+
+    // 删除指定键及其对应的值
+    void MDC::remove(const std::string &key) {
+        std::lock_guard<std::mutex> lock(mtx); 
+        if (MDC_map) {
+            MDC_map->erase(key);
+        }
+    }
+
+    // 获取当前线程对应的 MDC，如果没有则创建一个新的
+    std::shared_ptr<std::unordered_map<std::string, std::string>> MDC::getContext() {
+        if (!MDC_map) {
+            // 如果当前线程没有对应的 MDC，则创建一个新的
+            MDC_map = std::make_shared<std::unordered_map<std::string, std::string>>();
+        }
+        return MDC_map;
+    }
+
+    // 清空当前线程对应的 MDC
+    void MDC::clear() {
+        std::lock_guard<std::mutex> lock(mtx); 
+        if (MDC_map) {
+            MDC_map->clear();
+        }
+    }
+
+    // 获取当前线程的 ID
+    std::string MDC::getCurrentThreadId() {
+        std::ostringstream ss;
+        ss << std::this_thread::get_id();
+        return ss.str();
+    }
+
+    void MDC::setContext(std::unordered_map<std::string,std::string> parent_map){
+        for (auto iter = parent_map.begin(); iter != parent_map.end(); ++iter) {
+            std::string key = iter->first;
+            std::string value = iter->second;
+            put(key, value);
+        }
+    }
+}

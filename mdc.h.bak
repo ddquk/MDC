@@ -1,0 +1,50 @@
+#ifndef MDC_H
+#define MDC_H
+
+#include <memory>
+#include <unordered_map>
+#include <mutex>
+#include <thread>
+#include <sstream>
+
+namespace MDC {
+
+    // 声明类 MDC
+    class MDC {
+    public:
+        // 构造函数，在新线程中复制父线程的 MDC
+        MDC(std::shared_ptr<std::unordered_map<std::string, std::string>> ptr);  //TODO
+
+        // 添加键值对到 MDC 中
+        static void put(const std::string &key, const std::string &value);
+
+        // 获取指定键的值
+        static std::string get(const std::string &key);
+
+        // 删除指定键及其对应的值
+        static void remove(const std::string &key);
+
+        // 获取当前线程对应的 MDC，如果没有则创建一个新的
+        static std::shared_ptr<std::unordered_map<std::string, std::string>> getContext();
+
+        static void setContext(std::unordered_map<std::string,std::string>);
+        // 清空当前线程对应的 MDC
+        static void clear();
+
+        // 获取当前线程的 ID
+        static std::string getCurrentThreadId();
+        
+
+    };
+
+} // namespace LOG_MDC
+
+class tracingContext{
+public:
+    std::shared_ptr<std::unordered_map<std::string,std::string>> mdcMap;
+
+    tracingContext(std::shared_ptr<std::unordered_map<std::string,std::string>> parent_map):mdcMap(parent_map){}
+};
+
+#endif // MDC_H
+

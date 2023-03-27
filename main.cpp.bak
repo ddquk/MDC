@@ -1,0 +1,30 @@
+// g++ main.cpp mdc.cpp -o main -pthread
+#include "mdc.h"
+#include <iostream>
+#include <thread>
+#include <chrono>
+#include <log4cplus/configurator.h>
+
+std::shared_ptr<std::unordered_map<std::string, std::string>> global_mdc_map;
+
+void thread_func() {
+    // 在子线程中创建 MDC，并将全局变量中的 MDC 作为参数传递进去
+    MDC::MDC mdc(global_mdc_map);
+    std::cout << "child thread: " << MDC::MDC::getCurrentThreadId() << std::endl;
+    std::cout << "child thread MDC: " << MDC::MDC::get("key") << std::endl;
+}
+
+int main() {
+    // 在主线程中创建 MDC
+    MDC::MDC::put("key", "this is main thread Mdc value");
+
+    std::cout << "main thread: " << MDC::MDC::getCurrentThreadId() << std::endl;
+    std::cout << "main thread MDC: " << MDC::MDC::get("key") << std::endl;
+
+    // 将父线程的 MDC 存储在全局变量中
+    global_mdc_map = MDC::MDC::getContext();
+    std::thread t(thread_func);
+    t.join();
+
+    return 0;
+}
