@@ -1,15 +1,15 @@
 #include <iostream>
-#include <D:\c++\pthread-win32-master\pthread.h>
+#include <pthread.h>
 #include "mdc.h"
 
 using namespace std;
-using namespace MDC_NAMESPACE;
+using namespace MDC;
 
 void* child_thread_func(void* arg)
 {
     cout << "Child thread start" << endl;
     // 获取子线程中的MDC数据并输出
-    auto& context = MDC::MDC::getContext();
+    auto& context = MDC::getContext();
     for (const auto& item : context) {
         cout << "Child thread " << item.first << " : " << item.second << endl;
     }
@@ -21,9 +21,10 @@ void* parent_thread_func(void* arg)
 {
     cout << "Parent thread start" << endl;
     // 设置MDC数据
-    MDC::MDC::put("key2","value");
+    MDC::put("key1", "value1");
+    MDC::put("key2", "value2");
     // 输出MDC数据
-    auto& context = MDC::MDC::getContext();
+    auto& context = MDC::getContext();
     for (const auto& item : context) {
         cout << "Parent thread " << item.first << " : " << item.second << endl;
     }
@@ -47,9 +48,11 @@ int main()
     pthread_join(parent_thread, nullptr);
     return 0;
 }
-//在运行 main.cpp 后，输出应该是：
+/*
+输出：
 
-//parent thread MDC : {"parent_key":"parent_value"}
-//child thread MDC : {"child_key":"child_value", "parent_key" : "parent_value"}
-//其中，第一行是父线程的 MDC 数据，第二行是子线程的 MDC 数据。
-//可以看到，在子线程中，除了继承了父线程的 MDC 数据，还额外添加了一个 "child_key" : "child_value" 的键值对。
+parent thread MDC: {"parent_key":"parent_value"}
+child thread MDC: {"child_key":"child_value","parent_key":"parent_value"}
+其中，第一行是父线程的 MDC 数据，第二行是子线程的 MDC 数据。可以看到，在子线程中，除了继承了父线程的 MDC 数据，还额外添加了一个 "child_key":"child_value" 的键值对
+
+ */

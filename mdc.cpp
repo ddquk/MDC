@@ -24,8 +24,7 @@ namespace MDC {
     }
 
     // 在MDC结构体初始化时调用的函数，用于初始化pthread_key_t
-
-    void MDC::MDCInitializer() {
+    MDCInitializer::MDCInitializer() {
         pthread_key_create(&s_mdc_key, thread_data_destructor);
     }
 

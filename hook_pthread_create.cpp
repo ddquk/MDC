@@ -14,10 +14,10 @@ void __declspec(dllexport) __stdcall NativeInjectionEntryPoint(REMOTE_ENTRY_INFO
     // 安装钩子
     HOOK_TRACE_INFO hookInfo = { nullptr };
     NTSTATUS status = LhInstallHook(
-        GetProcAddress(GetModuleHandle(TEXT("pthreadVC2.dll")), "pthread_create"),
-        reinterpret_cast<LPVOID>(pthread_create),
-        nullptr,
-        &hookInfo
+            GetProcAddress(GetModuleHandle(TEXT("pthreadVC2.dll")), "pthread_create"),
+            reinterpret_cast<LPVOID>(pthread_create),
+            nullptr,
+            &hookInfo
     );
 
     if (FAILED(status)) {
@@ -42,10 +42,10 @@ void __declspec(dllexport) __stdcall NativeInjectionEntryPoint(REMOTE_ENTRY_INFO
 }
 
 // 拦截器的 pthread_create 函数
-int pthread_create(pthread_t* thread, const pthread_attr_t* attr, void* (*start_routine)(void*), void* arg) {
+int pthread_create(pthread_t* thread, const pthread_attr_t* attr, void *(*start_routine)(void*), void* arg) {
     // 备份父线程的 MDC
     std::unordered_map<std::string, std::string> parent_mdc_map;
-    auto parent_mdc = MDC_NAMESPACE::MDC::getContext();
+    auto parent_mdc = MDC::getContext();
     if (parent_mdc) {
         for (const auto& item : *parent_mdc) {
             parent_mdc_map[item.first] = item.second;
@@ -62,7 +62,7 @@ int pthread_create(pthread_t* thread, const pthread_attr_t* attr, void* (*start_
 
     if (result == 0) {  // 如果创建线程成功
         // 将 MDC 从父线程复制到新线程
-        auto new_mdc_map = MDC_NAMESPACE::MDC::getContext();
+        auto new_mdc_map = MDC::getContext();
         if (new_mdc_map) {
             for (const auto& item : parent_mdc_map) {
                 (*new_mdc_map)[item.first] = item.second;

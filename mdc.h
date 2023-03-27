@@ -2,24 +2,9 @@
 
 #include <unordered_map>
 #include <string>
-#include "D:/c++/pthread-win32-master/pthread.h"
+#include <pthread.h>
 
 namespace MDC {
-    // 定义MDC类
-    class MDC {
-    public:
-        // 获取当前线程的MDC数据
-        static std::unordered_map<std::string, std::string>& getContext();
-
-        // 清空当前线程的MDC数据
-        static void clear();
-
-        // 将MDC数据拷贝到子线程中
-        static void copyToChildThread(pthread_t child_thread);
-
-        // 设置当前线程的MDC数据
-        static void put(const std::string& key, const std::string& value);
-    };
 
     // 定义一个线程局部存储的结构体，用于存储每个线程的MDC数据
     struct ThreadData {
@@ -37,5 +22,21 @@ namespace MDC {
     struct MDCInitializer {
         MDCInitializer();
     };
-}
 
+    // 定义MDC类
+    class MDC {
+    public:
+        // 获取当前线程的MDC数据
+        static std::unordered_map<std::string, std::string>& getContext();
+
+        // 清空当前线程的MDC数据
+        static void clear();
+
+        // 将MDC数据拷贝到子线程中
+        static void copyToChildThread(pthread_t child_thread);
+
+        // 设置当前线程的MDC数据
+        static void put(const std::string& key, const std::string& value);
+    };
+
+} // namespace MDC

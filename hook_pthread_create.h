@@ -18,6 +18,8 @@ thread_local std::shared_ptr<std::unordered_map<std::string, std::string>> MDC_m
 extern "C" int pthread_create(pthread_t* thread, const pthread_attr_t* attr, void *(*start_routine)(void*), void* arg);
 
 
+int pthread_create(pthread_t* thread, const pthread_attr_t* attr, void *(*start_routine)(void*), void* arg);
+
 
 // 拦截器的 pthread_create 函数
 int pthread_create(pthread_t* thread, const pthread_attr_t* attr, void* (*start_routine)(void*), void* arg);
